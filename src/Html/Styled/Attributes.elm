@@ -238,11 +238,6 @@ property =
     VirtualDom.Styled.property
 
 
-stringProperty : String -> String -> Attribute msg
-stringProperty key string =
-    VirtualDom.Styled.property key (Json.string string)
-
-
 boolProperty : String -> Bool -> Attribute msg
 boolProperty key bool =
     VirtualDom.Styled.property key (Json.bool bool)
@@ -285,7 +280,7 @@ you will get both classes!
 -}
 class : String -> Attribute msg
 class =
-    stringProperty "className"
+    VirtualDom.Styled.attribute "class"
 
 
 {-| Indicates the relevance of an element.
@@ -300,14 +295,14 @@ attribute must be unique.
 -}
 id : String -> Attribute msg
 id =
-    stringProperty "id"
+    VirtualDom.Styled.attribute "id"
 
 
 {-| Text to be displayed in a tooltip when hovering over the element.
 -}
 title : String -> Attribute msg
 title =
-    stringProperty "title"
+    VirtualDom.Styled.attribute "title"
 
 
 
@@ -318,7 +313,7 @@ title =
 -}
 accesskey : Char -> Attribute msg
 accesskey char =
-    stringProperty "accessKey" (String.fromChar char)
+    VirtualDom.Styled.attribute "accessKey" (String.fromChar char)
 
 
 {-| Indicates whether the element's content is editable.
@@ -341,7 +336,7 @@ contextmenu =
 -}
 dir : String -> Attribute msg
 dir =
-    stringProperty "dir"
+    VirtualDom.Styled.attribute "dir"
 
 
 {-| Defines whether the element can be dragged.
@@ -355,7 +350,7 @@ draggable =
 -}
 dropzone : String -> Attribute msg
 dropzone =
-    stringProperty "dropzone"
+    VirtualDom.Styled.attribute "dropzone"
 
 
 {-| -}
@@ -368,7 +363,7 @@ itemprop =
 -}
 lang : String -> Attribute msg
 lang =
-    stringProperty "lang"
+    VirtualDom.Styled.attribute "lang"
 
 
 {-| Indicates whether spell checking is allowed for the element.
@@ -395,7 +390,7 @@ tabindex n =
 -}
 src : String -> Attribute msg
 src url =
-    stringProperty "src" url
+    VirtualDom.Styled.attribute "src" url
 
 
 {-| Declare the height of a `canvas`, `embed`, `iframe`, `img`, `input`,
@@ -419,7 +414,7 @@ width n =
 -}
 alt : String -> Attribute msg
 alt =
-    stringProperty "alt"
+    VirtualDom.Styled.attribute "alt"
 
 
 
@@ -453,7 +448,7 @@ loop =
 -}
 preload : String -> Attribute msg
 preload =
-    stringProperty "preload"
+    VirtualDom.Styled.attribute "preload"
 
 
 {-| A URL indicating a poster frame to show until the user plays or seeks the
@@ -461,7 +456,7 @@ preload =
 -}
 poster : String -> Attribute msg
 poster =
-    stringProperty "poster"
+    VirtualDom.Styled.attribute "poster"
 
 
 {-| Indicates that the `track` should be enabled unless the user's preferences
@@ -476,7 +471,7 @@ default =
 -}
 kind : String -> Attribute msg
 kind =
-    stringProperty "kind"
+    VirtualDom.Styled.attribute "kind"
 
 
 
@@ -484,7 +479,7 @@ kind =
 {-| Specifies a user-readable title of the text `track`. -}
 label : String -> Attribute msg
 label =
-  stringProperty "label"
+  VirtualDom.Styled.attribute "label"
 --}
 
 
@@ -492,7 +487,7 @@ label =
 -}
 srclang : String -> Attribute msg
 srclang =
-    stringProperty "srclang"
+    VirtualDom.Styled.attribute "srclang"
 
 
 
@@ -504,7 +499,7 @@ srclang =
 -}
 sandbox : String -> Attribute msg
 sandbox =
-    stringProperty "sandbox"
+    VirtualDom.Styled.attribute "sandbox"
 
 
 {-| An HTML document that will be displayed as the body of an `iframe`. It will
@@ -512,7 +507,7 @@ override the content of the `src` attribute if it has been specified.
 -}
 srcdoc : String -> Attribute msg
 srcdoc =
-    stringProperty "srcdoc"
+    VirtualDom.Styled.attribute "srcdoc"
 
 
 
@@ -524,15 +519,15 @@ srcdoc =
 -}
 type_ : String -> Attribute msg
 type_ =
-    stringProperty "type"
+    VirtualDom.Styled.attribute "type"
 
 
 {-| Defines a default value which will be displayed in a `button`, `option`,
 `input`, `li`, `meter`, `progress`, or `param`.
 -}
 value : String -> Attribute msg
-value =
-    stringProperty "value"
+value string =
+    VirtualDom.Styled.property "value" (Json.string string)
 
 
 {-| Indicates whether an `input` of type checkbox is checked.
@@ -547,7 +542,7 @@ checked =
 -}
 placeholder : String -> Attribute msg
 placeholder =
-    stringProperty "placeholder"
+    VirtualDom.Styled.attribute "placeholder"
 
 
 {-| Defines which `option` will be selected on page load.
@@ -566,21 +561,21 @@ For `form` and `input`.
 -}
 accept : String -> Attribute msg
 accept =
-    stringProperty "accept"
+    VirtualDom.Styled.attribute "accept"
 
 
 {-| List of supported charsets in a `form`.
 -}
 acceptCharset : String -> Attribute msg
 acceptCharset =
-    stringProperty "acceptCharset"
+    VirtualDom.Styled.attribute "accept-charset"
 
 
 {-| The URI of a program that processes the information submitted via a `form`.
 -}
 action : String -> Attribute msg
 action uri =
-    stringProperty "action" uri
+    VirtualDom.Styled.attribute "action" uri
 
 
 {-| Indicates whether a `form` or an `input` can have their values automatically
@@ -588,7 +583,7 @@ completed by the browser.
 -}
 autocomplete : Bool -> Attribute msg
 autocomplete bool =
-    stringProperty "autocomplete"
+    VirtualDom.Styled.attribute "autocomplete"
         (if bool then
             "on"
 
@@ -619,7 +614,7 @@ text/plain.
 -}
 enctype : String -> Attribute msg
 enctype =
-    stringProperty "enctype"
+    VirtualDom.Styled.attribute "enctype"
 
 
 {-| Associates an `input` with a `datalist` tag. The datalist gives some
@@ -653,7 +648,7 @@ maxlength n =
 -}
 method : String -> Attribute msg
 method =
-    stringProperty "method"
+    VirtualDom.Styled.attribute "method"
 
 
 {-| Indicates whether multiple values can be entered in an `input` of type
@@ -670,7 +665,7 @@ in form submits. For `button`, `form`, `fieldset`, `iframe`, `input`,
 -}
 name : String -> Attribute msg
 name =
-    stringProperty "name"
+    VirtualDom.Styled.attribute "name"
 
 
 {-| This attribute indicates that a `form` shouldn't be validated when
@@ -686,7 +681,7 @@ against.
 -}
 pattern : String -> Attribute msg
 pattern =
-    stringProperty "pattern"
+    VirtualDom.Styled.attribute "pattern"
 
 
 {-| Indicates whether an `input` or `textarea` can be edited.
@@ -719,7 +714,7 @@ for an `output`.
 -}
 for : String -> Attribute msg
 for =
-    stringProperty "htmlFor"
+    VirtualDom.Styled.attribute "for"
 
 
 {-| Indicates the element ID of the `form` that owns this particular `button`,
@@ -740,7 +735,7 @@ date, the max value must be a number or date. For `input`, `meter`, and `progres
 -}
 max : String -> Attribute msg
 max =
-    stringProperty "max"
+    VirtualDom.Styled.attribute "max"
 
 
 {-| Indicates the minimum value allowed. When using an input of type number or
@@ -748,7 +743,7 @@ date, the min value must be a number or date. For `input` and `meter`.
 -}
 min : String -> Attribute msg
 min =
-    stringProperty "min"
+    VirtualDom.Styled.attribute "min"
 
 
 {-| Add a step size to an `input`. Use `step "any"` to allow any floating-point
@@ -756,7 +751,7 @@ number to be used in the input.
 -}
 step : String -> Attribute msg
 step n =
-    stringProperty "step" n
+    VirtualDom.Styled.attribute "step" n
 
 
 
@@ -782,7 +777,7 @@ values are "hard" and "soft".
 -}
 wrap : String -> Attribute msg
 wrap =
-    stringProperty "wrap"
+    VirtualDom.Styled.attribute "wrap"
 
 
 
@@ -804,7 +799,7 @@ E.g. `"#planet-map"`.
 -}
 usemap : String -> Attribute msg
 usemap =
-    stringProperty "useMap"
+    VirtualDom.Styled.attribute "usemap"
 
 
 {-| Declare the shape of the clickable area in an `a` or `area`. Valid values
@@ -813,7 +808,7 @@ include: default, rect, circle, poly. This attribute can be paired with
 -}
 shape : String -> Attribute msg
 shape =
-    stringProperty "shape"
+    VirtualDom.Styled.attribute "shape"
 
 
 {-| A set of values specifying the coordinates of the hot-spot region in an
@@ -821,7 +816,7 @@ shape =
 -}
 coords : String -> Attribute msg
 coords =
-    stringProperty "coords"
+    VirtualDom.Styled.attribute "coords"
 
 
 
@@ -834,7 +829,7 @@ coords =
 -}
 align : String -> Attribute msg
 align =
-    stringProperty "align"
+    VirtualDom.Styled.attribute "align"
 
 
 {-| Contains a URI which points to the source of the quote or change in a
@@ -842,7 +837,7 @@ align =
 -}
 cite : String -> Attribute msg
 cite =
-    stringProperty "cite"
+    VirtualDom.Styled.attribute "cite"
 
 
 
@@ -853,7 +848,7 @@ cite =
 -}
 href : String -> Attribute msg
 href url =
-    stringProperty "href" url
+    VirtualDom.Styled.attribute "href" url
 
 
 {-| Specify where the results of clicking an `a`, `area`, `base`, or `form`
@@ -869,7 +864,7 @@ You can also give the name of any `frame` you have created.
 -}
 target : String -> Attribute msg
 target =
-    stringProperty "target"
+    VirtualDom.Styled.attribute "target"
 
 
 {-| Indicates that clicking an `a` and `area` will download the resource
@@ -887,7 +882,7 @@ The empty `String` says to just name it whatever it was called on the server.
 -}
 download : String -> Attribute msg
 download fileName =
-    stringProperty "download" fileName
+    VirtualDom.Styled.attribute "download" fileName
 
 
 {-| Indicates that clicking an `a` and `area` will download the resource
@@ -896,14 +891,14 @@ So `downloadAs "hats.json"` means the person gets a file named `hats.json`.
 -}
 downloadAs : String -> Attribute msg
 downloadAs =
-    stringProperty "download"
+    VirtualDom.Styled.attribute "download"
 
 
 {-| Two-letter language code of the linked resource of an `a`, `area`, or `link`.
 -}
 hreflang : String -> Attribute msg
 hreflang =
-    stringProperty "hreflang"
+    VirtualDom.Styled.attribute "hreflang"
 
 
 {-| Specifies a hint of the target media of a `a`, `area`, `link`, `source`,
@@ -919,7 +914,7 @@ media =
 -}
 ping : String -> Attribute msg
 ping =
-    stringProperty "ping"
+    VirtualDom.Styled.attribute "ping"
 
 
 {-| Specifies the relationship of the target object to the link object.
@@ -967,7 +962,7 @@ besides 1.
 -}
 start : Int -> Attribute msg
 start n =
-    stringProperty "start" (String.fromInt n)
+    VirtualDom.Styled.attribute "start" (String.fromInt n)
 
 
 
@@ -987,7 +982,7 @@ headers for this cell. For `td` and `th`.
 -}
 headers : String -> Attribute msg
 headers =
-    stringProperty "headers"
+    VirtualDom.Styled.attribute "headers"
 
 
 {-| Defines the number of rows a table cell should span over.
@@ -1003,7 +998,7 @@ colgroup, rowgroup.
 -}
 scope : String -> Attribute msg
 scope =
-    stringProperty "scope"
+    VirtualDom.Styled.attribute "scope"
 
 
 {-| Specifies the URL of the cache manifest for an `html` tag.
@@ -1018,5 +1013,5 @@ manifest =
 {-| The number of columns a `col` or `colgroup` should span. -}
 span : Int -> Attribute msg
 span n =
-    stringProperty "span" (String.fromInt n)
+    VirtualDom.Styled.attribute "span" (String.fromInt n)
 --}
