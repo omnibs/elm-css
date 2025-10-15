@@ -547,6 +547,10 @@ type_ =
 -}
 value : String -> Attribute msg
 value string =
+    -- Note: `.value` has no corresponding attribute. It can also be modified by
+    -- the user by typing in inputs.
+    -- Properties are diffed against the actual DOM, not the virtual DOM, so
+    -- this ensures that the DOM is up-to-date with the model.
     VirtualDom.Styled.property "value" (Json.string string)
 
 
