@@ -260,9 +260,9 @@ type Scope
     = Scope String
 
 
-encodeScope : Scope -> Json.Encode.Value
+encodeScope : Scope -> String
 encodeScope (Scope scope) =
-    Json.Encode.string scope
+    scope
 
 
 {-| Like map, but allows specifying an initial list to build on top of.
@@ -548,9 +548,9 @@ unstyleScopedNS maybeNonce scope ns elemType properties children =
         styleNode =
             toStyleNode maybeNonce (ScopedStyles scope rootStyles descendantStyles)
 
-        -- Ensure that our embedded id is the last property on the root node.  This should be less confusing if the user accidentally specifies their own id.
+        -- Ensure that our embedded id is the last attribute on the root node.  This should be less confusing if the user accidentally specifies their own id.
         unstyledProperties =
-            mapOnto (extractUnstyledAttributeNS rootStyles) properties [ VirtualDom.property "id" (encodeScope scope) ]
+            mapOnto (extractUnstyledAttributeNS rootStyles) properties [ VirtualDom.attribute "id" (encodeScope scope) ]
     in
     VirtualDom.nodeNS ns
         elemType
@@ -606,9 +606,9 @@ unstyleScoped maybeNonce scope elemType properties children =
         styleNode =
             toStyleNode maybeNonce (ScopedStyles scope rootStyles descendantStyles)
 
-        -- Ensure that our embedded id is the last property on the root node.  This should be less confusing if the user accidentally specifies their own id.
+        -- Ensure that our embedded id is the last attribute on the root node.  This should be less confusing if the user accidentally specifies their own id.
         unstyledProperties =
-            mapOnto (extractUnstyledAttribute rootStyles) properties [ VirtualDom.property "id" (encodeScope scope) ]
+            mapOnto (extractUnstyledAttribute rootStyles) properties [ VirtualDom.attribute "id" (encodeScope scope) ]
     in
     VirtualDom.node
         elemType
@@ -667,9 +667,9 @@ unstyleScopedKeyedNS maybeNonce scope ns elemType properties keyedChildren =
         keyedStyleNode =
             toKeyedStyleNode maybeNonce (ScopedStyles scope rootStyles descendantStyles) keyedChildNodes
 
-        -- Ensure that our embedded id is the last property on the root node.  This should be less confusing if the user accidentally specifies their own id.
+        -- Ensure that our embedded id is the last attribute on the root node.  This should be less confusing if the user accidentally specifies their own id.
         unstyledProperties =
-            mapOnto (extractUnstyledAttributeNS rootStyles) properties [ VirtualDom.property "id" (encodeScope scope) ]
+            mapOnto (extractUnstyledAttributeNS rootStyles) properties [ VirtualDom.attribute "id" (encodeScope scope) ]
     in
     VirtualDom.keyedNodeNS
         ns
@@ -726,9 +726,9 @@ unstyleScopedKeyed maybeNonce scope elemType properties keyedChildren =
         keyedStyleNode =
             toKeyedStyleNode maybeNonce (ScopedStyles scope rootStyles descendantStyles) keyedChildNodes
 
-        -- Ensure that our embedded id is the last property on the root node.  This should be less confusing if the user accidentally specifies their own id.
+        -- Ensure that our embedded id is the last attribute on the root node.  This should be less confusing if the user accidentally specifies their own id.
         unstyledProperties =
-            mapOnto (extractUnstyledAttribute rootStyles) properties [ VirtualDom.property "id" (encodeScope scope) ]
+            mapOnto (extractUnstyledAttribute rootStyles) properties [ VirtualDom.attribute "id" (encodeScope scope) ]
     in
     VirtualDom.keyedNode
         elemType
@@ -814,10 +814,10 @@ extractUnstyledAttribute styles (Attribute val isCssStyles cssTemplate) =
     if isCssStyles then
         case Dict.get cssTemplate styles of
             Just classname ->
-                VirtualDom.property "className" (Json.Encode.string classname)
+                VirtualDom.attribute "class" classname
 
             Nothing ->
-                VirtualDom.property "className" (Json.Encode.string "_unstyled")
+                VirtualDom.attribute "class" "_unstyled"
 
     else
         val
